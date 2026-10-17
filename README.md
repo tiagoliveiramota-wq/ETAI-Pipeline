@@ -45,7 +45,7 @@ Fairness Analysis and Demographic Impact (FPR)
   - Random Forest: Dangerously mirrored the original bias of the COMPAS system. To achieve its higher recall, the model sacrificed true negatives, driving the False Positive Rate up to 42% for the African-American population (nearly matching COMPAS's own 44%) and 23% for the Caucasian population.
 
   
-For now, we are still chosing to use LOGISTIC REGRESSION.
+  For now, we are still chosing to use LOGISTIC REGRESSION.
 -----------------------
 (para dar push e pull faço: 
 git add .
