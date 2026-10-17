@@ -46,6 +46,25 @@ Fairness Analysis and Demographic Impact (FPR)
 
   
   For now, we are still chosing to use LOGISTIC REGRESSION.
+
+----------------------
+# Week 5 & 6
+(We upgraded from a simple holdout method to a normal cross vaidation and then robust Nested Cross-Validation. We also implemented automated hyperparameter tuning using Optuna to chose the best hyperparameters and optimize our models.)
+
+When running the Random Forest with default parameters, we still see the same overfitting problem from Week 4: training accuracy hit 73.3%, but validation dropped to 65.0% (a gap of +0.082).
+However, after using Optuna to tune the hyperparameters (like limiting tree depth and requiring more samples per leaf), the overfitting was decreased by a lot. The training accuracy was at 69.0% and the validation accuracy increased to 67.9%. The gap shrank to just +0.011, giving us a highly stable model.
+
+(Precision vs. Recall)
+
+Tuned Random Forest: When predicting an individual would reoffend (class 1), the model is now correct 67% of the time (precision = 0.67), which is better than last week's Logistic Regression. It successfully captures 56% of the actual reoffenders (recall = 0.56). It strikes a much healthier balance, avoiding the massive false alarms we saw in the untuned forest.
+git 
+Fairness Analysis and Demographic Impact (FPR)
+
+The original commercial system heavily penalizes the African-American population with a 45% False Positive Rate (predicting they will reoffend when they actually don't), compared to just 23% for the Caucasian population.
+
+Tuned Random Forest: Tuning the hyperparameters drastically improved fairness compared to our Week 4 attempt. The False Positive Rate dropped from a dangerous 42% down to 29% for the African-American population, and down to 16% for the Caucasian population. While the historical bias is still visible, our tuned model is now significantly fairer than the original COMPAS software.
+
+For now, thanks to the hyperparameter tuning, we are upgrading and choosing to use the TUNED RANDOM FOREST.
 -----------------------
 (para dar push e pull faço: 
 git add .
