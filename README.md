@@ -65,6 +65,25 @@ The original commercial system heavily penalizes the African-American population
 Tuned Random Forest: Tuning the hyperparameters drastically improved fairness compared to our Week 4 attempt. The False Positive Rate dropped from a dangerous 42% down to 29% for the African-American population, and down to 16% for the Caucasian population. While the historical bias is still visible, our tuned model is now significantly fairer than the original COMPAS software.
 
 For now, thanks to the hyperparameter tuning, we are upgrading and choosing to use the TUNED RANDOM FOREST.
+
+-------------------------
+# Week 7
+Our tuned AdaBoost model gave us the best and most stable results so far. Our new main score best is 0.726. There is no sign of overfitting. The gap between training and testing is incredibly small (just +0.017). The overall accuracy is 68.2%, beating last week's Random Forest.
+
+(Precision vs. Recall)
+
+Tuned AdaBoost: When the model says someone will reoffend, it is right 68% of the time (precision). It successfully catches 56% of the real reoffenders (recall). This is a great balance because it catches many cases without making too many false alarms.
+
+Fairness Analysis (False Positive Rate)
+
+COMPAS Baseline: The original system was very unfair. It wrongly flagged 45% of innocent African-Americans as a risk, but only 23% of innocent Caucasians.
+
+Tuned AdaBoost: Our new model keeps the great fairness results from last week. The error rate dropped to 29% for African-Americans and 17% for Caucasians. The historical bias is still there, but our model is much fairer than the real COMPAS software.
+
+On our new automatic scoreboard, AdaBoost is in 1st place with a score of 0.726 (beating the basic, untuned version).
+
+For now, we are upgrading and choosing to use the TUNED ADABOOST.
+
 -----------------------
 (para dar push e pull faço: 
 git add .

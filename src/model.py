@@ -1,7 +1,11 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.dummy import DummyClassifier
-from sklearn.ensemble import RandomForestClassifier, BaggingClassifier, AdaBoostClassifier
+from sklearn.ensemble import (
+    RandomForestClassifier, BaggingClassifier, AdaBoostClassifier,
+    GradientBoostingClassifier, HistGradientBoostingClassifier
+)
+from sklearn.naive_bayes import GaussianNB
 from sklearn.pipeline import Pipeline
 from sklearn.random_projection import SparseRandomProjection
 from src.preprocessing import build_preprocessor
@@ -22,14 +26,12 @@ def oblique_random_forest(n_estimators: int = 100, n_components: int = 10, densi
     return BaggingClassifier(estimator=oblique_tree, n_estimators=n_estimators,
                              random_state=random_state, n_jobs=n_jobs)
 
-def adaboost(max_depth: int = 1, n_estimators: int = 50, learning_rate: float = 1.0, random_state=None):
+def adaboost(max_depth: int = 1, **params):
     """
-    AdaBoost over decision trees of `max_depth`. The weak learner is built here so Optuna
-    can reach `max_depth` through the `estimator__` prefix.
+    AdaBoost over decision trees of depth `max_depth` (1 = stumps); `params` go to
+    AdaBoostClassifier. The trees' depth is tuned as `model__estimator__max_depth`.
     """
-    return AdaBoostClassifier(estimator=DecisionTreeClassifier(max_depth=max_depth),
-                              n_estimators=n_estimators, learning_rate=learning_rate,
-                              random_state=random_state, algorithm="SAMME")
+    return AdaBoostClassifier(estimator=DecisionTreeClassifier(max_depth=max_depth), **params)
 
 _MODELS = {
     "dummy": DummyClassifier,
@@ -38,6 +40,9 @@ _MODELS = {
     "random_forest": RandomForestClassifier,
     "oblique_random_forest": oblique_random_forest,
     "adaboost": adaboost,
+    "gradient_boosting": GradientBoostingClassifier,
+    "hist_gradient_boosting": HistGradientBoostingClassifier,
+    "naive_bayes": GaussianNB,
 }
 
 def build_model(model_config: dict):
